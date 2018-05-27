@@ -48,6 +48,7 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
     
     var subtitleCellValue = SubtitleCellValue.phoneNumber
     var multiSelectEnabled: Bool = false //Default is single selection contact
+    open var maxSelectionAmount = -1
     
     // MARK: - Lifecycle Methods
     
@@ -289,8 +290,10 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
                 }
             }
             else {
-                cell.accessoryType = UITableViewCellAccessoryType.checkmark
-                selectedContacts.append(selectedContact)
+               if maxSelectionAmount < 0 || selectedContacts.count < maxSelectionAmount {
+                   cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                   selectedContacts.append(selectedContact)
+               }
             }
         }
         else {
